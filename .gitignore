@@ -24,5 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 src/tailwind.output.css
+src/sample data
 # Local Netlify folder
 .netlify

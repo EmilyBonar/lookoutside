@@ -1,5 +1,4 @@
 const axios = require("axios");
-require("dotenv").config();
 
 exports.handler = async (event, context) => {
 	const county = event.queryStringParameters.county;

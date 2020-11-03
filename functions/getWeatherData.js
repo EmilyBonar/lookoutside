@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
 	const weatherKey = process.env.weatherKey;
 	const responseData = await axios
 		.get(
-			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${weatherKey}`,
+			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${weatherKey}&units=imperial`,
 		)
 		.then((response) => {
 			return response.data;

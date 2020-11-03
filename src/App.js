@@ -50,8 +50,8 @@ class App extends React.Component {
 						{ hidden: this.state.splashScreen },
 					)}
 				>
-					<Card />
-					<Card />
+					<Card covidData={this.state.covid} />
+					<Card weatherData={this.state.weather} />
 				</div>
 			</div>
 		);

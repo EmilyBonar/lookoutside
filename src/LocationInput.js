@@ -6,7 +6,7 @@ function LocationInput(props) {
 			className={"flex flex-col sm:flex-row"}
 			onSubmit={(e) => {
 				e.preventDefault();
-				props.onSubmit(document.querySelector("input").value);
+				props.onSubmit(e.target[0].value);
 			}}
 		>
 			<input

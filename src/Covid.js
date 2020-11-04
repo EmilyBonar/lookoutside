@@ -1,26 +1,34 @@
 function Covid(props) {
-	if (props.data !== null) {
+	try {
+		let county = props.data.county;
+		let state = props.data.province;
+		let data = props.data.timeline;
+		let cases = Object.values(data.cases);
+		//console.log(cases);
+		//if (data !== [] && data !== null && data !== undefined) {
 		return (
 			<div className="text-center">
 				<h2 className="text-xl ">
-					Last daily infection count in {props.data[0].county} County,{" "}
-					{props.data[0].state}
+					Last daily infection count in{" "}
+					<span className="capitalize">
+						{county} County, {state}
+					</span>
 				</h2>
 				<h1 className="font-bold text-5xl">
-					{props.data[props.data.length - 1].cases -
-						props.data[props.data.length - 2].cases}
+					{cases[cases.length - 1] - cases[cases.length - 2]}
 				</h1>
 				<h3>
 					Daily cases
-					{isIncreasing(props.data)
+					{isIncreasing(cases)
 						? " are increasing, be careful!"
-						: isIncreasing(props.data) === false
+						: isIncreasing(cases) === false
 						? " are decreasing, good job!"
 						: " have been holding steady"}
 				</h3>
 			</div>
 		);
-	} else {
+	} catch (err) {
+		console.log(err);
 		return null;
 	}
 }

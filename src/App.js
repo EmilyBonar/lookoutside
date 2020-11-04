@@ -16,26 +16,43 @@ class App extends React.Component {
 		};
 		this.fetchLocation = this.fetchLocation.bind(this);
 	}
-	getCounty(address_components) {
-		return address_components
-			.filter((element) =>
-				element.types.includes("administrative_area_level_2"),
-			)[0]
-			.long_name.replace(/( County)?( Parish)?/g, "")
-			.replaceAll(" ", "+");
+	getCountyAndState(address_components) {
+		let county = "";
+		let state = "";
+		try {
+			county = address_components
+				.filter((element) =>
+					element.types.includes("administrative_area_level_2"),
+				)[0]
+				.long_name.toLowerCase();
+			state = address_components
+				.filter((element) =>
+					element.types.includes("administrative_area_level_1"),
+				)[0]
+				.long_name.toLowerCase();
+		} catch (err) {
+			console.log(err);
+		} finally {
+			return { county: county, state: state };
+		}
 	}
 
 	async fetchCovidData() {
+		let location = this.getCountyAndState(this.state.geo.address_components);
+		let county = location.county.replace(/( county)?( parish)?/g, "");
+		let state = location.state;
 		let data = await fetch(
-			`https://lookoutside.emilybonar.com/.netlify/functions/getCovidData?county=${this.getCounty(
-				this.state.geo.address_components,
-			)}`,
+			//`https://lookoutside.emilybonar.com/.netlify/functions/getCovidData?state=${state}`,
+			`./.netlify/functions/getCovidData?state=${state}`,
 		)
 			.then((res) => res.json())
 			.then((data) => {
 				return data;
 			});
-		//console.log(data);
+		data = data.filter((loc) => {
+			return loc.county === county;
+		})[0];
+
 		this.setState({ covid: data });
 	}
 
@@ -84,8 +101,15 @@ class App extends React.Component {
 						{ hidden: this.state.splashScreen },
 					)}
 				>
-					<Card covidData={this.state.covid} />
-					<Card weatherData={this.state.weather} />
+					<Card
+						covidData={this.state.covid}
+						location={this.state.geo}
+						hidden={this.state.splashScreen}
+					/>
+					<Card
+						weatherData={this.state.weather}
+						hidden={this.state.splashScreen}
+					/>
 				</div>
 			</div>
 		);

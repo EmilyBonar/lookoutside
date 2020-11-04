@@ -1,9 +1,11 @@
 const axios = require("axios");
 
 exports.handler = async (event, context) => {
-	const county = event.queryStringParameters.county;
+	const state = event.queryStringParameters.state;
 	const responseData = await axios
-		.get(`https://disease.sh/v3/covid-19/nyt/counties/${county}?lastdays=7`)
+		.get(
+			`https://disease.sh/v3/covid-19/historical/usacounties/${state}?lastdays=10`,
+		)
 		.then((response) => {
 			return response.data;
 		});

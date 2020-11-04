@@ -27,7 +27,7 @@ class App extends React.Component {
 
 	async fetchCovidData() {
 		let data = await fetch(
-			`./.netlify/functions/getCovidData?county=${this.getCounty(
+			`https://lookoutside.emilybonar.com/.netlify/functions/getCovidData?county=${this.getCounty(
 				this.state.geo.address_components,
 			)}`,
 		)
@@ -41,7 +41,7 @@ class App extends React.Component {
 
 	async fetchWeatherData() {
 		let data = await fetch(
-			`./.netlify/functions/getWeatherData?lat=${this.state.geo.geometry.location.lat}&lon=${this.state.geo.geometry.location.lng}`,
+			`https://lookoutside.emilybonar.com/.netlify/functions/getWeatherData?lat=${this.state.geo.geometry.location.lat}&lon=${this.state.geo.geometry.location.lng}`,
 		)
 			.then((res) => res.json())
 			.then((data) => {
@@ -55,7 +55,7 @@ class App extends React.Component {
 		if (value !== "") {
 			this.setState({ splashScreen: false, location: value });
 			let data = await fetch(
-				`./.netlify/functions/getLocationData?loc=${value}`,
+				`https://lookoutside.emilybonar.com/.netlify/functions/getLocationData?loc=${value}`,
 			)
 				.then((res) => res.json())
 				.then((data) => {

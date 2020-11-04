@@ -1,7 +1,6 @@
 import weatherData from "./sample data/sample weather.json";
 
-function Weather() {
-	console.log(weatherData);
+function Weather(props) {
 	return (
 		<div className="text-center">
 			<h2 className="text-2xl">Current temp</h2>

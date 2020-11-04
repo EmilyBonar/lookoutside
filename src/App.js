@@ -42,8 +42,7 @@ class App extends React.Component {
 		let county = location.county.replace(/( county)?( parish)?/g, "");
 		let state = location.state;
 		let data = await fetch(
-			//`https://lookoutside.emilybonar.com/.netlify/functions/getCovidData?state=${state}`,
-			`./.netlify/functions/getCovidData?state=${state}`,
+			`https://lookoutside.emilybonar.com/.netlify/functions/getCovidData?state=${state}`,
 		)
 			.then((res) => res.json())
 			.then((data) => {

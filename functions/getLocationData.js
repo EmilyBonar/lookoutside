@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
 			`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${geoKey}`,
 		)
 		.then((response) => {
-			return response.data;
+			return response.data.results[0];
 		});
 
 	return {

@@ -16,20 +16,54 @@ class App extends React.Component {
 		};
 		this.fetchLocation = this.fetchLocation.bind(this);
 	}
+	getCounty(address_components) {
+		return address_components
+			.filter((element) =>
+				element.types.includes("administrative_area_level_2"),
+			)[0]
+			.long_name.replace(/( County)?( Parish)?/g, "")
+			.replaceAll(" ", "+");
+	}
 
-	async getData() {
-		let data = await fetch("./.netlify/functions/getCovidData?county=Travis")
+	async fetchCovidData() {
+		let data = await fetch(
+			`./.netlify/functions/getCovidData?county=${this.getCounty(
+				this.state.geo.address_components,
+			)}`,
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				return data;
 			});
-		console.log("attempt");
-		console.log(data);
+		//console.log(data);
+		this.setState({ covid: data });
 	}
 
-	fetchLocation(value) {
+	async fetchWeatherData() {
+		let data = await fetch(
+			`./.netlify/functions/getWeatherData?lat=${this.state.geo.geometry.location.lat}&lon=${this.state.geo.geometry.location.lng}`,
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				return data;
+			});
+		//console.log(data);
+		this.setState({ weather: data });
+	}
+
+	async fetchLocation(value) {
 		if (value !== "") {
 			this.setState({ splashScreen: false, location: value });
+			let data = await fetch(
+				`./.netlify/functions/getLocationData?loc=${value}`,
+			)
+				.then((res) => res.json())
+				.then((data) => {
+					return data;
+				});
+			this.setState({ geo: data });
+			this.fetchCovidData();
+			this.fetchWeatherData();
 		} else {
 			this.setState({ splashScreen: true });
 		}

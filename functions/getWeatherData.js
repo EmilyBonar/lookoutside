@@ -12,7 +12,6 @@ exports.handler = async (event, context) => {
 		.then((response) => {
 			return response.data;
 		});
-	console.log(responseData);
 	return {
 		statusCode: 200,
 		body: JSON.stringify(responseData),

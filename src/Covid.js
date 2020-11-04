@@ -1,5 +1,3 @@
-import covidData from "./sample data/sample covid.json";
-
 function Covid(props) {
 	if (props.data !== null) {
 		return (

@@ -1,5 +1,3 @@
-import weatherData from "./sample data/sample weather.json";
-
 function Weather(props) {
 	if (props.data !== null) {
 		return (

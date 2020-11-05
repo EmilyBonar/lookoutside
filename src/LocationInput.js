@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 function LocationInput(props) {
 	return (
 		<>
-			<img src={logo} alt="" className="h-12 mt-4" />
+			<img src={logo} alt="" className="h-12 m-4 mb-0" />
 			<form
 				className={"flex flex-col sm:flex-row"}
 				onSubmit={(e) => {

@@ -96,7 +96,7 @@ class App extends React.Component {
 				<LocationInput onSubmit={this.fetchLocation} />
 				<div
 					className={classNames(
-						"w-full h-full inset-auto grid gap-2 grid-cols-1 mt-2 md:grid-cols-2",
+						"w-full h-full inset-auto grid gap-4 grid-cols-1 mt-2 md:grid-cols-2",
 						{ hidden: this.state.splashScreen },
 					)}
 				>
